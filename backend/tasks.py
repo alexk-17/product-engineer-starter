@@ -9,6 +9,7 @@ with open("assets/response-3.json", "r") as file:
     summary = data["summary"]
     steps = data["steps"]
     cpt_codes = data["cpt_codes"]
+    is_met = data["is_met"]
 
 
 # Function to simulate background process to update case status on a second interval
@@ -18,16 +19,17 @@ def update_case_status():
         try:
             cases = db.query(Case).all()
             for case in cases:
-                elapsed_time = datetime.now() - case.created_at
-                if elapsed_time < timedelta(seconds=10):
+                elapsed_time = (datetime.now() - case.created_at).total_seconds()
+                if elapsed_time < 10:
                     case.status = "submitted"
-                elif elapsed_time < timedelta(seconds=30):
+                elif elapsed_time < 30:
                     case.status = "processing"
                     case.summary = summary
                 else:
                     case.status = "complete"
                     case.steps = steps
                     case.cpt_codes = cpt_codes
+                    case.is_met = is_met
                 db.commit()
             time.sleep(1)
         finally:

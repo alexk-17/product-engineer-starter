@@ -2,6 +2,7 @@ from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
 import uuid
 from .database import SessionLocal, Case
+from datetime import datetime
 
 router = APIRouter()
 
@@ -26,6 +27,7 @@ async def create_case(db: Session = Depends(get_db)):
     new_case = Case(
         id=case_id,
         procedure_name="Facet Joint Injection",
+        created_at=datetime.now(),
     )
     db.add(new_case)
     db.commit()

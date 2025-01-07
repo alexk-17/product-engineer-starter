@@ -8,7 +8,7 @@ The structure of this README is as follows:
 - [Task 1](#task-1)
 - [Task 2](#task-2)
 
-Answers to any open ended questions will be in the corresponding numbered task section.
+Answers to any open ended questions will be in the corresponding numbered task section. Additionally, I provided small callouts to the code that I think is relevant to the task.
 
 ## Setup - Backend
 
@@ -73,13 +73,20 @@ Run the following to lint the frontend code:
 npm run lint
 ```
 
+Run to format the frontend code:
+
+```bash
+npm run format
+```
+
 ## Task 1
 
+Assumptions:
+
+- 1b asks to add a green tick to the success message, but a FontAwesome check icon was already added. I made the assumption that the FontAwesome icon will suffice.
+- For the toast notification, I know the doc mentions using the "react-toast" library, but I didn't find the exact matching library name, so I used "react-hot-toast." Of course, this is a small call-out, but I wanted to make it nonetheless.
+
 The current design considerations for buttons and loading states are as follows:
-
-- **Consistent Color Scheme:**
-
-  - Ensure that the loading states for both buttons use the same color scheme to avoid confusion on the same page.
 
 - **Guided Process:**
   - Separate the uploads into distinct steps/pages. This approach reduces state checks and clarifies the process.
@@ -87,6 +94,10 @@ The current design considerations for buttons and loading states are as follows:
   - We would have to allow the user to go back to the previous step, so they can change their medical record if they need to.
 
 ## Task 2
+
+Assumptions:
+
+- For the background task simulation, I set it up to commit updates for each case right after it updates. I was thinking of potentially making it so it would commit updates for all cases at the end of the loop, but I figured this would be more realistic if we were to update the records right after the "task" would be completed for that one case.
 
 The overall backend architecture is as follows:
 
@@ -130,3 +141,11 @@ To scale this application for production I would consider the following improvem
 Below is a high-level architecture diagram of the application:
 
 ![High Level Architecture Diagram](anterior-diagram.png)
+
+## Task 3
+
+I wanted to mention here that I took inspiration from the demo video on the document and utilized `@headlessui/react` to try and replicate the look and feel of the demo. Also want to call out that the main commit for task 3 also includes some changes to the work for task 1 and task 2.
+
+Assumptions:
+
+- The doc specifically calls out to display at least 2 of the CPT codes, so I made functionality in the list component to initially show 2 of the codes and then show a "Show All" button to show all of the codes. Since the list is short, it seems unnecessary in this context, but I imagine that, in more realistic scenarios, this would be a good feature if there were a lot of codes.
