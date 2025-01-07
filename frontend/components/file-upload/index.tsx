@@ -11,7 +11,7 @@ interface FileUploadProps {
     setFile: (file: any) => void;
     dependencyFile?: any;
     dependencyMessage?: string;
-    buttonColor?: string; // New prop for button color
+    buttonColor?: string;
 }
 
 export default function FileUpload({
@@ -20,9 +20,11 @@ export default function FileUpload({
     setFile,
     dependencyFile,
     dependencyMessage,
-    buttonColor = "blue" // Default color is blue
+    buttonColor = "blue"
 }: FileUploadProps) {
     const [loading, setLoading] = useState(false);
+
+    const buttonClass = `text-white font-medium py-2 px-4 rounded border border-2 bg-${buttonColor}-500 border-${buttonColor}-500`;
 
     const handleClick = () => {
         if (dependencyFile === null && dependencyMessage) {
@@ -47,7 +49,7 @@ export default function FileUpload({
                         loading || dependencyFile === null
                             ? "text-gray-500 font-medium py-2 px-4 rounded border border-2 bg-gray-300 border-gray-300"
                             : file === null
-                            ? `text-white font-medium py-2 px-4 rounded border border-2 bg-${buttonColor}-500 border-${buttonColor}-500`
+                            ? buttonClass
                             : "text-white font-medium py-2 px-4 rounded border-transparent text-green-600"
                     }
                     onClick={handleClick}
