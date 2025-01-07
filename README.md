@@ -149,3 +149,12 @@ I wanted to mention here that I took inspiration from the demo video on the docu
 Assumptions:
 
 - The doc specifically calls out to display at least 2 of the CPT codes, so I made functionality in the list component to initially show 2 of the codes and then show a "Show All" button to show all of the codes. Since the list is short, it seems unnecessary in this context, but I imagine that, in more realistic scenarios, this would be a good feature if there were a lot of codes.
+
+## Task 4
+
+Below is a list of some of the bonus features I implemented:
+
+- Added auto-refreshing for the case results page
+  - This was a naive implementation here. I think a better implementation would be to use a websocket to stream the updates to the client.
+  - It will stop refreshing once the case status is complete
+- Created a generic file upload component

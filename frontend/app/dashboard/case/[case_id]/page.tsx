@@ -17,12 +17,18 @@ export default function CaseResult() {
     const { case_id } = useParams();
     const [currCase, setCurrCase] = useState<ICase | null>(null);
     const [caseNotFound, setCaseNotFound] = useState<boolean | null>(null);
-    useEffect(() => {
+
+    const fetchCase = () => {
+        // Check if the fetched case is already completed
+        if (currCase?.status === "complete") {
+            setLoading(false);
+            return;
+        }
+
         setLoading(true);
         getCase(Array.isArray(case_id) ? case_id[0] : case_id)
             .then((fetchedCase) => {
                 setCurrCase(fetchedCase);
-                console.log(fetchedCase);
                 setCaseNotFound(false);
             })
             .catch((error) => {
@@ -33,7 +39,13 @@ export default function CaseResult() {
             .finally(() => {
                 setLoading(false);
             });
-    }, [case_id]);
+    };
+
+    useEffect(() => {
+        fetchCase();
+        const interval = setInterval(fetchCase, 5000);
+        return () => clearInterval(interval);
+    }, [case_id, currCase]);
 
     return (
         <div>
@@ -45,8 +57,7 @@ export default function CaseResult() {
                                 selected
                                     ? "w-full p-2 font-medium rounded-lg bg-white"
                                     : "w-full p-2 font-medium rounded-lg hover:bg-zinc-200 hover:text-blue-500"
-                            }
-                        >
+                            }>
                             Overview
                         </Tab>
                         <Tab
@@ -54,14 +65,13 @@ export default function CaseResult() {
                                 selected
                                     ? "w-full p-2 font-medium rounded-lg bg-white"
                                     : "w-full p-2 font-medium rounded-lg hover:bg-zinc-200 hover:text-blue-500"
-                            }
-                        >
+                            }>
                             Steps
                         </Tab>
                     </Tab.List>
                     <Tab.Panels>
                         <Tab.Panel className="bg-white p-3 rounded-xl border border-zinc-200">
-                            {loading === null || loading ? (
+                            {loading === null ? (
                                 <Loader />
                             ) : caseNotFound !== null && caseNotFound ? (
                                 <div className="flex flex-col items-center justify-center h-full">
@@ -74,8 +84,7 @@ export default function CaseResult() {
                                     </p>
                                     <button
                                         className="mt-4 px-4 py-2 rounded-lg bg-zinc-200 hover:bg-zinc-300"
-                                        onClick={() => router.push("/dashboard")}
-                                    >
+                                        onClick={() => router.push("/dashboard")}>
                                         Go Back to Dashboard
                                     </button>
                                 </div>
@@ -103,8 +112,7 @@ export default function CaseResult() {
                                     <div
                                         className={`mt-2 p-4 rounded-lg ${
                                             currCase?.is_met ? "bg-green-100" : "bg-red-100"
-                                        }`}
-                                    >
+                                        }`}>
                                         <div>
                                             <p className="font-bold">Determination: </p>
                                             <p
@@ -112,8 +120,7 @@ export default function CaseResult() {
                                                     currCase?.is_met
                                                         ? "capitalize text-green-500 font-bold"
                                                         : "capitalize text-red-500 font-bold"
-                                                }
-                                            >
+                                                }>
                                                 {currCase?.is_met ? "Met" : "Not Met"}
                                             </p>
                                         </div>
@@ -132,7 +139,7 @@ export default function CaseResult() {
                             )}
                         </Tab.Panel>
                         <Tab.Panel className="bg-white p-3 rounded-xl border border-zinc-200">
-                            {loading ? (
+                            {loading === null ? (
                                 <Loader />
                             ) : caseNotFound !== null && caseNotFound ? (
                                 <div className="flex flex-col items-center justify-center h-full">
@@ -145,8 +152,7 @@ export default function CaseResult() {
                                     </p>
                                     <button
                                         className="mt-4 px-4 py-2 rounded-lg bg-zinc-200 hover:bg-zinc-300"
-                                        onClick={() => router.push("/dashboard")}
-                                    >
+                                        onClick={() => router.push("/dashboard")}>
                                         Go Back to Dashboard
                                     </button>
                                 </div>
