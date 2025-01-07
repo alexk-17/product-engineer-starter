@@ -7,12 +7,22 @@ import { useRouter } from "next/navigation";
 
 export const revalidate = 0;
 
+export async function createCase() {
+    const response = await fetch("http://localhost:8000/cases", {
+        method: "POST",
+        body: JSON.stringify({})
+    });
+    return response.json();
+}
+
 export default function DashboardRoot() {
     const router = useRouter();
     const { medicalRecord, guidelinesFile } = useDashboard();
-    const CASE_ID = "case_891a_6fbl_87d1_4326";
+    let CASE_ID = null;
 
-    const handleContinue = () => {
+    const handleContinue = async () => {
+        // Make post request to create a case
+        CASE_ID = await createCase();
         router.push(`/dashboard/case/${CASE_ID}`);
     };
 

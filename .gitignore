@@ -45,3 +45,14 @@ next-env.d.ts
 
 # nvm
 .nvmrc
+
+# python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+
+
+# sqlite
+test.db
