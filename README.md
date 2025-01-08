@@ -7,6 +7,9 @@ The structure of this README is as follows:
 - [Setup - Frontend](#setup---frontend)
 - [Task 1](#task-1)
 - [Task 2](#task-2)
+- [Task 3](#task-3)
+- [Task 4](#task-4)
+- [Conclusion](#conclusion)
 
 Answers to any open ended questions will be in the corresponding numbered task section. Additionally, I provided small callouts to the code that I think is relevant to the task.
 
@@ -158,3 +161,11 @@ Below is a list of some of the bonus features I implemented:
   - This was a naive implementation here. I think a better implementation would be to use a websocket to stream the updates to the client.
   - It will stop refreshing once the case status is complete
 - Created a generic file upload component
+
+## Conclusion
+
+If I had more time, I would have liked to implement the following:
+
+- Improved UI/UX of the file upload process, I think there was room for improvement there
+- Implement a case list view to allow the user to jump between cases
+- Implement a websocket implementation for the case results page for polling
