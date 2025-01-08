@@ -16,7 +16,6 @@ export default function CaseResult() {
     const router = useRouter();
     const { case_id } = useParams();
     const [loading, setLoading] = useState<boolean | null>(null);
-    const [completed, setCompleted] = useState<boolean | null>(null);
     const [currCase, setCurrCase] = useState<ICase | null>(null);
     const [caseNotFound, setCaseNotFound] = useState<boolean | null>(null);
 
