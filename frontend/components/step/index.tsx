@@ -5,6 +5,7 @@ import { IStep } from "@/lib/api";
 import Options from "./option";
 import Evidence from "./evidence";
 import Logic from "./logic";
+import classNames from "classnames";
 
 interface StepProps {
     step: IStep;
@@ -24,12 +25,10 @@ export default function Step({ step }: StepProps) {
                 {selectedOptions.map((option, index) => (
                     <div
                         key={option.key}
-                        className={
-                            index % 2 === 0
-                                ? "flex flex-row p-2 items-center gap-1 bg-zinc-100"
-                                : "flex flex-row p-2 items-center gap-1 bg-white"
-                        }
-                    >
+                        className={classNames(
+                            "flex flex-row p-2 items-center gap-1 rounded-lg border border-zinc-200",
+                            index % 2 === 0 ? "bg-zinc-100" : "bg-white"
+                        )}>
                         <FaCheckSquare className="text-green-500" /> ({option.key}) {option.text}
                     </div>
                 ))}

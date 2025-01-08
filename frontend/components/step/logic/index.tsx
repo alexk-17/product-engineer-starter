@@ -3,6 +3,7 @@
 import { ILogic } from "@/lib/api";
 import { Listbox, RadioGroup } from "@headlessui/react";
 import { useState } from "react";
+import classNames from "classnames";
 import { FaCheckSquare } from "react-icons/fa";
 
 interface LogicProps {
@@ -24,8 +25,7 @@ export default function Logic({ decision, next_step, logic }: LogicProps) {
             </div>
             <button
                 className="mt-2 text-sm  hover:underline"
-                onClick={() => setShowLogic(!showLogic)}
-            >
+                onClick={() => setShowLogic(!showLogic)}>
                 {showLogic ? "Hide why" : "Show why"}
             </button>
             {showLogic && (
@@ -38,11 +38,11 @@ export default function Logic({ decision, next_step, logic }: LogicProps) {
                                     key={logic.text}
                                     value={logic}
                                     className={({ active, selected }) =>
-                                        selected
-                                            ? "text-sm bg-zinc-100 border border-zinc-200 rounded-lg p-2 m-0"
-                                            : "text-sm bg-white border border-zinc-200 rounded-lg p-2 m-0"
-                                    }
-                                >
+                                        classNames(
+                                            "text-sm rounded-lg p-2 m-0 border border-zinc-200",
+                                            selected ? "bg-zinc-100" : "bg-white"
+                                        )
+                                    }>
                                     {({ active, selected }) => (
                                         <Listbox.Label>
                                             <div className="flex flex-row items-center gap-1">

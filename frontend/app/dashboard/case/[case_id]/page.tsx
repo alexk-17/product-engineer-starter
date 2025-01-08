@@ -2,6 +2,7 @@
 
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import classNames from "classnames";
 import toast from "react-hot-toast";
 import { Tab } from "@headlessui/react";
 
@@ -54,17 +55,19 @@ export default function CaseResult() {
                     <Tab.List className="flex p-1 space-x-1 bg-zinc-300 rounded-xl">
                         <Tab
                             className={({ selected }) =>
-                                selected
-                                    ? "w-full p-2 font-medium rounded-lg bg-white"
-                                    : "w-full p-2 font-medium rounded-lg hover:bg-zinc-200 hover:text-blue-500"
+                                classNames(
+                                    "w-full p-2 font-medium rounded-lg",
+                                    selected ? "bg-white" : "hover:bg-zinc-200 hover:text-blue-500"
+                                )
                             }>
                             Overview
                         </Tab>
                         <Tab
                             className={({ selected }) =>
-                                selected
-                                    ? "w-full p-2 font-medium rounded-lg bg-white"
-                                    : "w-full p-2 font-medium rounded-lg hover:bg-zinc-200 hover:text-blue-500"
+                                classNames(
+                                    "w-full p-2 font-medium rounded-lg",
+                                    selected ? "bg-white" : "hover:bg-zinc-200 hover:text-blue-500"
+                                )
                             }>
                             Steps
                         </Tab>
@@ -116,11 +119,12 @@ export default function CaseResult() {
                                         <div>
                                             <p className="font-bold">Determination: </p>
                                             <p
-                                                className={
+                                                className={classNames(
+                                                    "text-lg capitalize",
                                                     currCase?.is_met
-                                                        ? "capitalize text-green-500 font-bold"
-                                                        : "capitalize text-red-500 font-bold"
-                                                }>
+                                                        ? "text-green-500 font-bold"
+                                                        : "text-red-500 font-bold"
+                                                )}>
                                                 {currCase?.is_met ? "Met" : "Not Met"}
                                             </p>
                                         </div>

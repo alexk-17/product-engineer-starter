@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { FaCheck } from "react-icons/fa";
+import classNames from "classnames";
 import toast from "react-hot-toast";
 import Loader from "@/components/loader";
 
@@ -11,7 +12,7 @@ interface FileUploadProps {
     setFile: (file: any) => void;
     dependencyFile?: any;
     dependencyMessage?: string;
-    buttonColor?: string;
+    buttonColor?: "blue" | "green" | "red" | "orange";
 }
 
 export default function FileUpload({
@@ -24,7 +25,14 @@ export default function FileUpload({
 }: FileUploadProps) {
     const [loading, setLoading] = useState(false);
 
-    const buttonClass = `text-white font-medium py-2 px-4 rounded border border-2 bg-${buttonColor}-500 border-${buttonColor}-500`;
+    const buttonClass =
+        buttonColor === "blue"
+            ? "text-white bg-blue-500 border-blue-500"
+            : buttonColor === "green"
+            ? "text-white bg-green-500 border-green-500"
+            : buttonColor === "red"
+            ? "text-white bg-red-500 border-red-500"
+            : "text-white bg-orange-500 border-orange-500";
 
     const handleClick = () => {
         if (dependencyFile === null && dependencyMessage) {
@@ -45,13 +53,14 @@ export default function FileUpload({
                 <Loader />
             ) : (
                 <button
-                    className={
+                    className={classNames(
+                        "font-medium py-2 px-4 rounded border-2",
                         loading || dependencyFile === null
-                            ? "text-gray-500 font-medium py-2 px-4 rounded border border-2 bg-gray-300 border-gray-300"
+                            ? "text-gray-500 bg-gray-300 border-gray-300"
                             : file === null
                             ? buttonClass
-                            : "text-white font-medium py-2 px-4 rounded border-transparent text-green-600"
-                    }
+                            : "text-white text-green-600 border-transparent"
+                    )}
                     onClick={handleClick}
                     disabled={loading || dependencyFile === null}>
                     {file === null && <span>Simulate {fileType} Upload</span>}

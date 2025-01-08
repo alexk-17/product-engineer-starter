@@ -2,6 +2,7 @@
 
 import { IOption } from "@/lib/api";
 import { Listbox } from "@headlessui/react";
+import classNames from "classnames";
 import { useState } from "react";
 import { FaCheckSquare } from "react-icons/fa";
 
@@ -17,8 +18,7 @@ export default function Options({ options }: OptionProps) {
         <>
             <button
                 className="mt-2 text-sm hover:underline"
-                onClick={() => setShowOptions(!showOptions)}
-            >
+                onClick={() => setShowOptions(!showOptions)}>
                 {showOptions ? "Hide Options" : "Show All Options"}
             </button>
             {showOptions && (
@@ -31,11 +31,11 @@ export default function Options({ options }: OptionProps) {
                                     key={option.key}
                                     value={option}
                                     className={({ active, selected }) =>
-                                        selected
-                                            ? "text-sm bg-zinc-100 border border-zinc-200 rounded-lg p-2 m-0"
-                                            : "text-sm bg-white border border-zinc-200 rounded-lg p-2 m-0"
-                                    }
-                                >
+                                        classNames(
+                                            "text-sm rounded-lg p-2 m-0 border border-zinc-200",
+                                            selected ? "bg-zinc-100" : "bg-white"
+                                        )
+                                    }>
                                     {({ active, selected }) => (
                                         <Listbox.Label>
                                             <div className="flex flex-row items-center gap-1">
