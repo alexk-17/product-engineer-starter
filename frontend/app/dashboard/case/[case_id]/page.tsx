@@ -14,8 +14,9 @@ import { elapsedTime } from "@/lib/utils";
 
 export default function CaseResult() {
     const router = useRouter();
-    const [loading, setLoading] = useState<boolean | null>(null);
     const { case_id } = useParams();
+    const [loading, setLoading] = useState<boolean | null>(null);
+    const [completed, setCompleted] = useState<boolean | null>(null);
     const [currCase, setCurrCase] = useState<ICase | null>(null);
     const [caseNotFound, setCaseNotFound] = useState<boolean | null>(null);
 
@@ -29,7 +30,9 @@ export default function CaseResult() {
         setLoading(true);
         getCase(Array.isArray(case_id) ? case_id[0] : case_id)
             .then((fetchedCase) => {
-                setCurrCase(fetchedCase);
+                if (currCase?.status !== fetchedCase.status) {
+                    setCurrCase(fetchedCase);
+                }
                 setCaseNotFound(false);
             })
             .catch((error) => {
@@ -44,7 +47,9 @@ export default function CaseResult() {
 
     useEffect(() => {
         fetchCase();
-        const interval = setInterval(fetchCase, 5000);
+        const interval = setInterval(() => {
+            fetchCase();
+        }, 5000);
         return () => clearInterval(interval);
     }, [case_id, currCase]);
 

@@ -13,6 +13,14 @@ The structure of this README is as follows:
 
 Answers to any open ended questions will be in the corresponding numbered task section. Additionally, I provided small callouts to the code that I think is relevant to the task.
 
+The commit message style is as follows:
+
+```
+task # - commit message
+```
+
+Commits will list all the tasks that they affect.
+
 ## Setup - Backend
 
 Create a virtual environment:
